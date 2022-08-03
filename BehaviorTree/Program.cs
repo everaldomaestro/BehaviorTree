@@ -18,7 +18,7 @@ fallback01.AddChild(leafFallback01);
 fallback01.AddChild(leafFallback02);
 sequence01.AddChild(fallback01);
 
-var retry01 = new Retry("Sequence 01 - Retry 01", 11);
+var retry01 = new Retry("Sequence 01 - Retry 01", 10);
 var leafRetry01 = new Leaf("Sequence 01 - Retry 01 - Leaf 01", TYPE.ACTION, CounterFailAndSuccess);
 retry01.AddChild(leafRetry01);
 sequence01.AddChild(retry01);
@@ -64,7 +64,6 @@ STATUS CounterFailAndSuccess()
     count = 0;
     return STATUS.SUCCESS;
 }
-
 
 STATUS Success()
 {

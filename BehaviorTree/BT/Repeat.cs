@@ -1,11 +1,11 @@
 ﻿namespace BehaviorTree.BT
 {
-    public class Retry : Node
+    public class Repeat : Node
     {
         private readonly int num_attempts;
         int count = 0;
 
-        public Retry(string name, int num_attempts) : base(name)
+        public Repeat(string name, int num_attempts) : base(name)
         {
             type = TYPE.DECORATOR;
             this.num_attempts = num_attempts;
@@ -16,12 +16,12 @@
             status = STATUS.RUNNING;
 
             var action = childrens[currentChild].Process();
-            if (action == STATUS.FAILURE)
+            if (action == STATUS.SUCCESS)
                 count++;
 
-            if (action == STATUS.SUCCESS)
+            if (action == STATUS.FAILURE)
             {
-                status = STATUS.SUCCESS;
+                status = STATUS.FAILURE;
             }
             else if (count >= num_attempts)
             {
