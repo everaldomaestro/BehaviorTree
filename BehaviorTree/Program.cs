@@ -1,38 +1,46 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using BehaviorTree.BT;
+using BehaviorTree.BT.Interfaces;
 using static BehaviorTree.BT.Node;
+using static BehaviorTree.BT.CompositeNodes.SyncParallelNode;
 
 int count = 0;
 
-var sequence01 = new Sequence("Sequence 01");
+INode tree;
 
-var leafInverter01 = new Leaf("Sequence 01 - Inverter 01 - Leaf 01", TYPE.CONDITION, Failure);
-var inverter01 = new Inverter("Sequence 01 - Inverter 01");
-inverter01.AddChild(leafInverter01);
-sequence01.AddChild(inverter01);
+var builder = new BehaviourTreeBuilder();
 
-var fallback01 = new Fallback("Sequence 01 - Fallback 01");
-var leafFallback01 = new Leaf("Sequence 01 - Fallback 01 - Leaf 01", TYPE.ACTION, CounterThatWillFail);
-var leafFallback02 = new Leaf("Sequence 01 - Fallback 01 - Leaf 02", TYPE.ACTION, Success);
-fallback01.AddChild(leafFallback01);
-fallback01.AddChild(leafFallback02);
-sequence01.AddChild(fallback01);
+tree = builder
+        .Root("Root", false)
+            .Sequence("Sequence 01")
+                .Inverter("Sequence 01 - Inverter 01")
+                    .Condition("Sequence 01 - Inverter 01 - Leaf 01", Failure)                     
+                .End()
+                .Selector("Sequence 01 - Fallback 01")
+                    .Action("Sequence 01 - Fallback 01 - Leaf 01", CounterThatWillFail)
+                    .Action("Sequence 01 - Fallback 01 - Leaf 02", Success)
+                .End()
+                .Retry("Sequence 01 - Retry 01", 10)
+                    .Action("Sequence 01 - Retry 01 - Leaf 01", CounterFailAndSuccess)
+                .End()
+                .Sequence("Sequence 01 - Sequence 02")
+                    .Action("Sequence 01 - Sequence 02 - Leaf 01", CounterThatWillNotFail)
+                    .Action("Sequence 01 - Sequence 02 - Leaf 02", CounterThatWillNotFail)
+                    .Action("Sequence 01 - Sequence 02 - Leaf 03", CounterThatWillNotFail)
+                    .Condition("Sequence 01 - Sequence 02 - Leaf 04", CounterThatWillFail)                    
+                .End()
+                .SyncParallel("Sequence 01 - Parallel 01", POLICY.REQUIRE_ALL, POLICY.REQUIRE_ONE, STATUS.FAILURE)
+                    .Action("Sequence 01 - Parallel 01 - Leaf 01", CounterThatWillNotFail)
+                    .Action("Sequence 01 - Parallel 01 - Leaf 02", CounterThatWillNotFail)
+                .End()
+            .End()
+        .End()
+        .Build();
 
-var retry01 = new Retry("Sequence 01 - Retry 01", 10);
-var leafRetry01 = new Leaf("Sequence 01 - Retry 01 - Leaf 01", TYPE.ACTION, CounterFailAndSuccess);
-retry01.AddChild(leafRetry01);
-sequence01.AddChild(retry01);
-
-var leafSequence01 = new Leaf("Sequence 01 - Leaf 01", TYPE.ACTION, CounterThatWillNotFail);
-var leafSequence02 = new Leaf("Sequence 01 - Leaf 02", TYPE.ACTION, CounterThatWillNotFail);
-var leafSequence03 = new Leaf("Sequence 01 - Leaf 03", TYPE.ACTION, CounterThatWillNotFail);
-sequence01.AddChild(leafSequence01);
-sequence01.AddChild(leafSequence02);
-sequence01.AddChild(leafSequence03);
-
-while (sequence01.GetStatus() == STATUS.RUNNING)
+while (tree.GetStatus() == STATUS.RUNNING)
 {
-    sequence01.Process();
+    tree.Tick();
+    Console.WriteLine("---------------------------------------------------------------");
 }
 
 STATUS CounterThatWillNotFail()
