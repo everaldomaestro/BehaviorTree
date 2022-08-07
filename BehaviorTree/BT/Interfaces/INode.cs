@@ -9,5 +9,6 @@ namespace BehaviorTree.BT.Interfaces
         STATE SetState(STATE state);
         STATUS Tick();
         string ToString();
+        void Reset();
     }
 }

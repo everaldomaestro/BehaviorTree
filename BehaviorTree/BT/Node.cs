@@ -6,7 +6,7 @@ namespace BehaviorTree.BT
     {
         public enum STATE { IDLE, EXECUTING, FINISHED }
         public enum STATUS { RUNNING, SUCCESS, FAILURE }
-        public enum TYPE { COMPOSITE, DECORATOR, CONDITION, ACTION }
+        public enum TYPE { ROOT, COMPOSITE, DECORATOR, CONDITION, ACTION }
 
         protected string name;
         protected int currentChild = 0;
@@ -22,7 +22,7 @@ namespace BehaviorTree.BT
             this.name = name;
             parent = null;
             state = STATE.IDLE;
-        }        
+        }
 
         public STATE State { get { return state; } }
         public TYPE Type { get { return type; } }
@@ -31,6 +31,13 @@ namespace BehaviorTree.BT
 
         public virtual void Attach(Node child)
         {
+            if (type == TYPE.ROOT && (HasChildren() || child.Type != TYPE.COMPOSITE))
+                throw new InvalidOperationException($"Unable to add Node {child}.");
+            else if(type == TYPE.ACTION || type == TYPE.CONDITION)
+                throw new InvalidOperationException($"Unable to add Node {child}.");
+            else if(type == TYPE.DECORATOR && HasChildren())
+                throw new InvalidOperationException($"Unable to add Node {child}.");
+
             child.parent = this;
             children.Add(child);
         }
@@ -41,6 +48,10 @@ namespace BehaviorTree.BT
             children.Remove(child);
         }
 
+        public virtual void Reset()
+        {
+            state = STATE.IDLE;
+        }
 
         public STATE SetState(STATE state) => this.state = state;
         public STATUS GetStatus() => status;

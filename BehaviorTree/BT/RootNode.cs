@@ -7,10 +7,10 @@ namespace BehaviorTree.BT
         private readonly bool executeInLoop;
         public bool ExecuteInLoop => executeInLoop;
 
-        public RootNode(string name, bool executeInLoop = false) : base(name)
+        public RootNode(string name, bool executeInLoop = true) : base(name)
         {
             this.executeInLoop = executeInLoop;
-            type = TYPE.COMPOSITE;
+            type = TYPE.ROOT;
         }
 
         public override STATUS Tick()
@@ -25,20 +25,12 @@ namespace BehaviorTree.BT
             if (!executeInLoop && action != STATUS.RUNNING)
             {
                 SetState(STATE.IDLE);
-                children[currentChild].SetState(STATE.IDLE);
+                children[currentChild].Reset();
                 status = action;
             }
 
             Console.WriteLine($"{name} - {status}");
             return status;
-        }
-
-        public override void Attach(Node child)
-        {
-            if (HasChildren() || child.Type != TYPE.COMPOSITE)
-                throw new InvalidOperationException($"Unable to add Node {child}.");
-
-            base.Attach(child);
         }
     }
 }

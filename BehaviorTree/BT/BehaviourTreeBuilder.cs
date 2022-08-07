@@ -27,7 +27,7 @@ namespace BehaviorTree.BT
         /// <summary>
         /// Create a root node.
         /// </summary>
-        public BehaviourTreeBuilder Root(string name, bool executeInLoop)
+        public BehaviourTreeBuilder Root(string name, bool executeInLoop = true)
         {
             if (parentNodeStack.Count > 0)
                 throw new InvalidOperationException("Can't add a root node in a tree with nodes");
@@ -53,6 +53,20 @@ namespace BehaviorTree.BT
         }
 
         /// <summary>
+        /// Create a random sequence node that tick a random child.
+        /// </summary>
+        public BehaviourTreeBuilder RandomSequence(string name)
+        {
+            var randomSequenceNode = new RandomSequenceNode(name);
+
+            if (parentNodeStack.Count > 0)
+                parentNodeStack.Peek().Attach(randomSequenceNode);
+
+            parentNodeStack.Push(randomSequenceNode);
+            return this;
+        }
+
+        /// <summary>
         /// Create a sync parallel node.
         /// </summary>
         public BehaviourTreeBuilder SyncParallel(string name, POLICY policySuccess, POLICY policyFailure, STATUS statusWhenInInfinteLoop)
@@ -69,14 +83,28 @@ namespace BehaviorTree.BT
         /// <summary>
         /// Create a selector(fallback) node.
         /// </summary>
-        public BehaviourTreeBuilder Selector(string name)
+        public BehaviourTreeBuilder Fallback(string name)
         {
-            var selectorNode = new SelectorNode(name);
+            var fallbackNode = new FallbackNode(name);
 
             if (parentNodeStack.Count > 0)
-                parentNodeStack.Peek().Attach(selectorNode);
+                parentNodeStack.Peek().Attach(fallbackNode);
 
-            parentNodeStack.Push(selectorNode);
+            parentNodeStack.Push(fallbackNode);
+            return this;
+        }
+
+        /// <summary>
+        /// Create a random selector(fallback) node.
+        /// </summary>
+        public BehaviourTreeBuilder RandomFallback(string name)
+        {
+            var randomFallbackNode = new RandomFallbackNode(name);
+
+            if (parentNodeStack.Count > 0)
+                parentNodeStack.Peek().Attach(randomFallbackNode);
+
+            parentNodeStack.Push(randomFallbackNode);
             return this;
         }
 

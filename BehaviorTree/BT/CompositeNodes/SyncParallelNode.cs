@@ -72,7 +72,7 @@ namespace BehaviorTree.BT.CompositeNodes
                 status = STATUS.SUCCESS;
 
             if (status != STATUS.RUNNING)
-                children.ForEach(x => x.SetState(STATE.IDLE));
+                children.ForEach(x => x.Reset());
 
             Console.WriteLine($"{name} - {status}");
             return status;

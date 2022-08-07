@@ -19,13 +19,13 @@ namespace BehaviorTree.BT.CompositeNodes
             var action = children[currentChild].Tick();
             if (action == STATUS.FAILURE)
             {
-                children[currentChild].SetState(STATE.IDLE);
+                children[currentChild].Reset();
                 status = STATUS.FAILURE;
                 currentChild = 0;
             }
             else if (action == STATUS.SUCCESS)
             {
-                children[currentChild].SetState(STATE.IDLE);
+                children[currentChild].Reset();
 
                 if (currentChild == children.Count - 1)
                 {

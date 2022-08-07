@@ -28,10 +28,5 @@
             Console.WriteLine($"{name} - {status}");
             return status;
         }
-
-        public override void Attach(Node child)
-        {
-            throw new InvalidOperationException($"Unable to add Node {child}.");
-        }
     }
 }

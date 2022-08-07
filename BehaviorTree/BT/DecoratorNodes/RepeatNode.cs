@@ -26,25 +26,19 @@ namespace BehaviorTree.BT.DecoratorNodes
 
             if (action == STATUS.FAILURE)
             {
-                children[currentChild].SetState(STATE.IDLE);
+                children[currentChild].Reset();
                 status = STATUS.FAILURE;
+                countSuccess = 0;
             }
             else if (countSuccess >= times)
             {
-                children[currentChild].SetState(STATE.IDLE);
+                children[currentChild].Reset();
                 status = STATUS.SUCCESS;
+                countSuccess = 0;
             }
 
             Console.WriteLine($"{name} - {status}");
             return status;
-        }
-
-        public override void Attach(Node child)
-        {
-            if (HasChildren())
-                throw new InvalidOperationException($"Unable to add Node {child}.");
-
-            base.Attach(child);
         }
     }
 }

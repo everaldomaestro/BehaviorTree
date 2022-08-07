@@ -11,12 +11,12 @@ INode tree;
 var builder = new BehaviourTreeBuilder();
 
 tree = builder
-        .Root("Root", false)
-            .Sequence("Sequence 01")
+        .Root("Root", true)
+            .RandomSequence("Sequence 01")
                 .Inverter("Sequence 01 - Inverter 01")
-                    .Condition("Sequence 01 - Inverter 01 - Leaf 01", Failure)                     
+                    .Condition("Sequence 01 - Inverter 01 - Leaf 01", Failure)
                 .End()
-                .Selector("Sequence 01 - Fallback 01")
+                .Fallback("Sequence 01 - Fallback 01")
                     .Action("Sequence 01 - Fallback 01 - Leaf 01", CounterThatWillFail)
                     .Action("Sequence 01 - Fallback 01 - Leaf 02", Success)
                 .End()
@@ -27,7 +27,6 @@ tree = builder
                     .Action("Sequence 01 - Sequence 02 - Leaf 01", CounterThatWillNotFail)
                     .Action("Sequence 01 - Sequence 02 - Leaf 02", CounterThatWillNotFail)
                     .Action("Sequence 01 - Sequence 02 - Leaf 03", CounterThatWillNotFail)
-                    .Condition("Sequence 01 - Sequence 02 - Leaf 04", CounterThatWillFail)                    
                 .End()
                 .SyncParallel("Sequence 01 - Parallel 01", POLICY.REQUIRE_ALL, POLICY.REQUIRE_ONE, STATUS.FAILURE)
                     .Action("Sequence 01 - Parallel 01 - Leaf 01", CounterThatWillNotFail)

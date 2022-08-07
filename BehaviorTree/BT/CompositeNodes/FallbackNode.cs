@@ -2,9 +2,9 @@
 
 namespace BehaviorTree.BT.CompositeNodes
 {
-    public sealed class SelectorNode : Node, IParentNode
+    public sealed class FallbackNode : Node, IParentNode
     {
-        public SelectorNode(string name) : base(name)
+        public FallbackNode(string name) : base(name)
         {
             type = TYPE.COMPOSITE;
         }
@@ -20,13 +20,12 @@ namespace BehaviorTree.BT.CompositeNodes
             if (action == STATUS.SUCCESS)
             {
                 status = STATUS.SUCCESS;
-                children[currentChild].SetState(STATE.IDLE);
+                children[currentChild].Reset();
                 currentChild = 0;
             }
-
-            if (action == STATUS.FAILURE)
+            else if (action == STATUS.FAILURE)
             {
-                children[currentChild].SetState(STATE.IDLE);
+                children[currentChild].Reset();
 
                 if (currentChild == children.Count - 1)
                 {

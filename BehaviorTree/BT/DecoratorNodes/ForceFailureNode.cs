@@ -20,20 +20,12 @@ namespace BehaviorTree.BT.DecoratorNodes
 
             if (action != STATUS.RUNNING)
             {
-                children[currentChild].SetState(STATE.IDLE);
+                children[currentChild].Reset();
                 status = STATUS.FAILURE;
             }
 
             Console.WriteLine($"{name} - {status}");
             return status;
-        }
-
-        public override void Attach(Node child)
-        {
-            if (HasChildren())
-                throw new InvalidOperationException($"Unable to add Node {child}.");
-
-            base.Attach(child);
         }
     }
 }
