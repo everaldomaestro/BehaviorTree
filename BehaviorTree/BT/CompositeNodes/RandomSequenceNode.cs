@@ -4,10 +4,7 @@ namespace BehaviorTree.BT.CompositeNodes
 {
     public sealed class RandomSequenceNode : RandomComposite
     {
-        public RandomSequenceNode(string name) : base(name)
-        {
-            type = TYPE.COMPOSITE;
-        }
+        public RandomSequenceNode(string name) : base(name) { }
 
         public override STATUS Tick()
         {

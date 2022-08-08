@@ -42,7 +42,7 @@ namespace BehaviorTree.BT.CompositeNodes
                             break;
                         }
                     }
-                    if (action == STATUS.FAILURE)
+                    else if (action == STATUS.FAILURE)
                     {
                         child.SetState(STATE.FINISHED);
 
