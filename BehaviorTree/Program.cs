@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using BehaviorTree.BT;
 using BehaviorTree.BT.Interfaces;
-using static BehaviorTree.BT.Node;
+using static BehaviorTree.BT.Abstract.Node;
 using static BehaviorTree.BT.CompositeNodes.SyncParallelNode;
 
 int count = 0;
@@ -11,7 +11,7 @@ INode tree;
 var builder = new BehaviourTreeBuilder();
 
 tree = builder
-        .Root("Root", true)
+        .Root("Root", false)
             .RandomSequence("Sequence 01")
                 .Inverter("Sequence 01 - Inverter 01")
                     .Condition("Sequence 01 - Inverter 01 - Leaf 01", Failure)

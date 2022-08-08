@@ -1,23 +1,16 @@
-﻿using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.BT.Abstract;
 
 namespace BehaviorTree.BT.DecoratorNodes
 {
-    public sealed class InverterNode : Node, IParentNode
+    public sealed class InverterNode : Decorator
     {
-        public InverterNode(string name) : base(name)
-        {
-            type = TYPE.DECORATOR;
-        }
+        public InverterNode(string name) : base(name) { }
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-                state = STATE.EXECUTING;
-
-            status = STATUS.RUNNING;
+            SetStats();
 
             var action = children[currentChild].Tick();
-
             if (action == STATUS.SUCCESS)
             {
                 children[currentChild].Reset();
@@ -29,7 +22,6 @@ namespace BehaviorTree.BT.DecoratorNodes
                 status = STATUS.SUCCESS;
             }
 
-            Console.WriteLine($"{name} - {status}");
             return status;
         }
     }

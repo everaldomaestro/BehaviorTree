@@ -1,30 +1,22 @@
-﻿using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.BT.Abstract;
 
 namespace BehaviorTree.BT.DecoratorNodes
 {
-    public sealed class ForceFailureNode : Node, IParentNode
+    public sealed class ForceFailureNode : Decorator
     {
-        public ForceFailureNode(string name) : base(name)
-        {
-            type = TYPE.DECORATOR;
-        }
+        public ForceFailureNode(string name) : base(name) { }
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-                state = STATE.EXECUTING;
-
-            status = STATUS.RUNNING;
+            SetStats();
 
             var action = children[currentChild].Tick();
-
             if (action != STATUS.RUNNING)
             {
                 children[currentChild].Reset();
                 status = STATUS.FAILURE;
             }
 
-            Console.WriteLine($"{name} - {status}");
             return status;
         }
     }

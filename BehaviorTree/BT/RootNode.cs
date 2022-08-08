@@ -1,4 +1,5 @@
-﻿using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.BT.Abstract;
+using BehaviorTree.BT.Interfaces;
 
 namespace BehaviorTree.BT
 {
@@ -16,7 +17,7 @@ namespace BehaviorTree.BT
         public override STATUS Tick()
         {
             if (state == STATE.IDLE)
-                state = STATE.EXECUTING;
+                state = STATE.WORKING;
 
             status = STATUS.RUNNING;
 
@@ -29,8 +30,22 @@ namespace BehaviorTree.BT
                 status = action;
             }
 
-            Console.WriteLine($"{name} - {status}");
             return status;
+        }
+
+        public void Attach(Node child)
+        {
+            if(HasChildren() || child.Type != TYPE.COMPOSITE)
+               throw new InvalidOperationException($"Unable to add Node {child}.");
+
+            SetParent(child);
+            children.Add(child);
+        }
+
+        public void Detach(Node child)
+        {
+            SetParent(child, true);
+            children.Remove(child);
         }
     }
 }

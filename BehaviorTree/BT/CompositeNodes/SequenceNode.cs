@@ -1,20 +1,14 @@
-﻿using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.BT.Abstract;
 
 namespace BehaviorTree.BT.CompositeNodes
 {
-    public sealed class SequenceNode : Node, IParentNode
+    public sealed class SequenceNode : Composite
     {
-        public SequenceNode(string name) : base(name)
-        {
-            type = TYPE.COMPOSITE;
-        }
+        public SequenceNode(string name) : base(name) { }
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-                state = STATE.EXECUTING;
-
-            status = STATUS.RUNNING;
+            SetStats();
 
             var action = children[currentChild].Tick();
             if (action == STATUS.FAILURE)
@@ -38,7 +32,6 @@ namespace BehaviorTree.BT.CompositeNodes
                 }
             }
 
-            Console.WriteLine($"{name} - {status}");
             return status;
         }
     }

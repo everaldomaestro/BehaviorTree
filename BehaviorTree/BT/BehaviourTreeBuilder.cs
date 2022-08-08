@@ -3,7 +3,7 @@ using BehaviorTree.BT.DecoratorNodes;
 using BehaviorTree.BT.Interfaces;
 using BehaviorTree.BT.LeafNodes;
 using static BehaviorTree.BT.CompositeNodes.SyncParallelNode;
-using static BehaviorTree.BT.Node;
+using static BehaviorTree.BT.Abstract.Node;
 
 /// <summary>
 /// BehaviourTreeBuilder class is based on the class with same name on 

@@ -1,20 +1,14 @@
-﻿using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.BT.Abstract;
 
 namespace BehaviorTree.BT.CompositeNodes
 {
-    public sealed class FallbackNode : Node, IParentNode
+    public sealed class FallbackNode : Composite
     {
-        public FallbackNode(string name) : base(name)
-        {
-            type = TYPE.COMPOSITE;
-        }
+        public FallbackNode(string name) : base(name) { }
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-                state = STATE.EXECUTING;
-
-            status = STATUS.RUNNING;
+            SetStats();
 
             var action = children[currentChild].Tick();
             if (action == STATUS.SUCCESS)
@@ -38,7 +32,6 @@ namespace BehaviorTree.BT.CompositeNodes
                 }
             }
 
-            Console.WriteLine($"{name} - {status}");
             return status;
         }
     }

@@ -1,6 +1,8 @@
-﻿namespace BehaviorTree.BT.LeafNodes
+﻿using BehaviorTree.BT.Abstract;
+
+namespace BehaviorTree.BT.LeafNodes
 {
-    public sealed class ConditionNode : Node
+    public sealed class ConditionNode : Leaf
     {
         public delegate STATUS ProcessNode();
         public event ProcessNode Process;
@@ -13,19 +15,14 @@
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-                state = STATE.EXECUTING;
-
-            status = STATUS.RUNNING;
+            SetStats();
 
             var action = Process?.Invoke();
-
-            if (action == STATUS.SUCCESS)
+            if (action.HasValue && action.Value == STATUS.SUCCESS)
                 status = STATUS.SUCCESS;
             else
                 status = STATUS.FAILURE;
 
-            Console.WriteLine($"{name} - {status}");
             return status;
         }
     }

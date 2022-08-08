@@ -1,14 +1,15 @@
-﻿using static BehaviorTree.BT.Node;
+﻿using BehaviorTree.BT.Abstract;
+using static BehaviorTree.BT.Abstract.Node;
 
 namespace BehaviorTree.BT.Interfaces
 {
     public interface INode
     {
-        STATUS GetStatus();
-        bool HasChildren();
-        STATE SetState(STATE state);
         STATUS Tick();
-        string ToString();
+        STATUS GetStatus();
+        STATE SetState(STATE state);
+        void SetParent(Node child, bool removeParent = false);
+        bool HasChildren();
         void Reset();
     }
 }

@@ -1,8 +1,8 @@
-﻿using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.BT.Abstract;
 
 namespace BehaviorTree.BT.CompositeNodes
 {
-    public sealed class SyncParallelNode : Node, IParentNode
+    public sealed class SyncParallelNode : Composite
     {
         public enum POLICY { REQUIRE_ONE, REQUIRE_ALL }
 
@@ -15,7 +15,6 @@ namespace BehaviorTree.BT.CompositeNodes
 
         public SyncParallelNode(string name, POLICY success, POLICY failure, STATUS stateWhenInInfiniteLoop) : base(name)
         {
-            type = TYPE.COMPOSITE;
             policySuccess = success;
             policyFailure = failure;
             this.stateWhenInInfiniteLoop = stateWhenInInfiniteLoop;
@@ -23,13 +22,7 @@ namespace BehaviorTree.BT.CompositeNodes
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-            {
-                successCount = failureCount = 0;
-                state = STATE.EXECUTING;
-            }
-
-            status = STATUS.RUNNING;
+            SetStats();
 
             var filterChildren = children.Where(x => x.State != STATE.FINISHED).ToList();
             if (filterChildren.Any())
@@ -74,8 +67,18 @@ namespace BehaviorTree.BT.CompositeNodes
             if (status != STATUS.RUNNING)
                 children.ForEach(x => x.Reset());
 
-            Console.WriteLine($"{name} - {status}");
             return status;
+        }
+
+        public override void SetStats()
+        {
+            if (state == STATE.IDLE)
+            {
+                successCount = failureCount = 0;
+                state = STATE.WORKING;
+            }
+
+            status = STATUS.RUNNING;
         }
     }
 }

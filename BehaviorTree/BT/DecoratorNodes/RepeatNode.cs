@@ -1,24 +1,17 @@
-﻿using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.BT.Abstract;
 
 namespace BehaviorTree.BT.DecoratorNodes
 {
-    public sealed class RepeatNode : Node, IParentNode
+    public sealed class RepeatNode : Decorator
     {
         private readonly int times;
         int countSuccess = 0;
 
-        public RepeatNode(string name, int times) : base(name)
-        {
-            type = TYPE.DECORATOR;
-            this.times = times;
-        }
+        public RepeatNode(string name, int times) : base(name) { this.times = times; }
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-                state = STATE.EXECUTING;
-
-            status = STATUS.RUNNING;
+            SetStats();
 
             var action = children[currentChild].Tick();
             if (action == STATUS.SUCCESS)
@@ -37,7 +30,6 @@ namespace BehaviorTree.BT.DecoratorNodes
                 countSuccess = 0;
             }
 
-            Console.WriteLine($"{name} - {status}");
             return status;
         }
     }
