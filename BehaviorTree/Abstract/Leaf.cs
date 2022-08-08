@@ -1,4 +1,4 @@
-﻿namespace BehaviorTree.BT.Abstract
+﻿namespace BehaviorTree.Abstract
 {
     public abstract class Leaf : Node
     {

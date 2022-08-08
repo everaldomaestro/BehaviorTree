@@ -1,6 +1,6 @@
-﻿using BehaviorTree.BT.Abstract;
+﻿using BehaviorTree.Abstract;
 
-namespace BehaviorTree.BT.DecoratorNodes
+namespace BehaviorTree.DecoratorNodes
 {
     public sealed class RetryNode : Decorator
     {

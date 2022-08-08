@@ -1,7 +1,7 @@
-﻿using BehaviorTree.BT.Abstract;
-using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.Abstract;
+using BehaviorTree.Abstract.Interfaces;
 
-namespace BehaviorTree.BT
+namespace BehaviorTree
 {
     public sealed class RootNode : Node, IParentNode
     {

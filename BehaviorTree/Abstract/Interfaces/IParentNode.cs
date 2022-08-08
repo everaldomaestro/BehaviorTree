@@ -1,6 +1,4 @@
-﻿using BehaviorTree.BT.Abstract;
-
-namespace BehaviorTree.BT.Interfaces
+﻿namespace BehaviorTree.Abstract.Interfaces
 {
     public interface IParentNode : INode
     {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BehaviorTree", "BehaviorTree\BehaviorTree.csproj", "{2D18BD03-8C5B-460B-8811-4EDDA17FFA45}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BehaviorTree.Tests", "BehaviorTree.Tests\BehaviorTree.Tests.csproj", "{20B7C076-5954-4B7F-90CF-6675C9826C70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BehaviorTree", "BehaviorTree\BehaviorTree.csproj", "{24C4C9A6-DB99-4BDA-B0FB-F07E9DC7FDA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2D18BD03-8C5B-460B-8811-4EDDA17FFA45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D18BD03-8C5B-460B-8811-4EDDA17FFA45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D18BD03-8C5B-460B-8811-4EDDA17FFA45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D18BD03-8C5B-460B-8811-4EDDA17FFA45}.Release|Any CPU.Build.0 = Release|Any CPU
 		{20B7C076-5954-4B7F-90CF-6675C9826C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{20B7C076-5954-4B7F-90CF-6675C9826C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20B7C076-5954-4B7F-90CF-6675C9826C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20B7C076-5954-4B7F-90CF-6675C9826C70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24C4C9A6-DB99-4BDA-B0FB-F07E9DC7FDA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24C4C9A6-DB99-4BDA-B0FB-F07E9DC7FDA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24C4C9A6-DB99-4BDA-B0FB-F07E9DC7FDA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24C4C9A6-DB99-4BDA-B0FB-F07E9DC7FDA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

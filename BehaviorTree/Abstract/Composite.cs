@@ -1,6 +1,6 @@
-﻿using BehaviorTree.BT.Interfaces;
+﻿using BehaviorTree.Abstract.Interfaces;
 
-namespace BehaviorTree.BT.Abstract
+namespace BehaviorTree.Abstract
 {
     public abstract class Composite : Node, IParentNode
     {

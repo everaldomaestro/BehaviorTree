@@ -1,7 +1,6 @@
-﻿using BehaviorTree.BT.Abstract;
-using static BehaviorTree.BT.Abstract.Node;
+﻿using static BehaviorTree.Abstract.Node;
 
-namespace BehaviorTree.BT.Interfaces
+namespace BehaviorTree.Abstract.Interfaces
 {
     public interface INode
     {

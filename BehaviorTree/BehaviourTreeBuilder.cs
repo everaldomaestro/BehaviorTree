@@ -1,16 +1,16 @@
-﻿using BehaviorTree.BT.CompositeNodes;
-using BehaviorTree.BT.DecoratorNodes;
-using BehaviorTree.BT.Interfaces;
-using BehaviorTree.BT.LeafNodes;
-using static BehaviorTree.BT.CompositeNodes.SyncParallelNode;
-using static BehaviorTree.BT.Abstract.Node;
+﻿using BehaviorTree.CompositeNodes;
+using BehaviorTree.DecoratorNodes;
+using BehaviorTree.Abstract.Interfaces;
+using BehaviorTree.LeafNodes;
+using static BehaviorTree.CompositeNodes.SyncParallelNode;
+using static BehaviorTree.Abstract.Node;
 
 /// <summary>
 /// BehaviourTreeBuilder class is based on the class with same name on 
 /// https://github.com/ashleydavis/Fluent-Behaviour-Tree
 /// </summary>
 
-namespace BehaviorTree.BT
+namespace BehaviorTree
 {
     public class BehaviourTreeBuilder
     {

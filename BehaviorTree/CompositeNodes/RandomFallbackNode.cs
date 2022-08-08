@@ -1,10 +1,10 @@
-﻿using BehaviorTree.BT.Abstract;
+﻿using BehaviorTree.Abstract;
 
-namespace BehaviorTree.BT.CompositeNodes
+namespace BehaviorTree.CompositeNodes
 {
-    public sealed class RandomSequenceNode : RandomComposite
+    public sealed class RandomFallbackNode : RandomComposite
     {
-        public RandomSequenceNode(string name) : base(name) { }
+        public RandomFallbackNode(string name) : base(name) { }
 
         public override STATUS Tick()
         {
@@ -22,16 +22,16 @@ namespace BehaviorTree.BT.CompositeNodes
             status = STATUS.RUNNING;
 
             var action = children[currentChild].Tick();
-            if (action == STATUS.FAILURE)
+            if (action == STATUS.SUCCESS)
             {
-                status = STATUS.FAILURE;
+                status = STATUS.SUCCESS;
             }
-            else if (action == STATUS.SUCCESS)
+            else if (action == STATUS.FAILURE)
             {
                 children[currentChild].SetState(STATE.FINISHED);
 
                 if (!ChildTickRandom())
-                    status = STATUS.SUCCESS;
+                    status = STATUS.FAILURE;
                 else
                     status = STATUS.RUNNING;
             }

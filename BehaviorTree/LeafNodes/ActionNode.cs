@@ -1,15 +1,15 @@
-﻿using BehaviorTree.BT.Abstract;
+﻿using BehaviorTree.Abstract;
 
-namespace BehaviorTree.BT.LeafNodes
+namespace BehaviorTree.LeafNodes
 {
-    public sealed class ConditionNode : Leaf
+    public sealed class ActionNode : Leaf
     {
         public delegate STATUS ProcessNode();
         public event ProcessNode Process;
 
-        public ConditionNode(string name, ProcessNode process) : base(name)
+        public ActionNode(string name, ProcessNode process) : base(name)
         {
-            type = TYPE.CONDITION;
+            type = TYPE.ACTION;
             Process += process;
         }
 
@@ -18,8 +18,8 @@ namespace BehaviorTree.BT.LeafNodes
             SetStats();
 
             var action = Process?.Invoke();
-            if (action.HasValue && action.Value == STATUS.SUCCESS)
-                status = STATUS.SUCCESS;
+            if (action.HasValue)
+                status = action.GetValueOrDefault();
             else
                 status = STATUS.FAILURE;
 

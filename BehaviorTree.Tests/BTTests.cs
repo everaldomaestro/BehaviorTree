@@ -1,7 +1,6 @@
-using BehaviorTree.BT;
-using BehaviorTree.BT.Interfaces;
-using static BehaviorTree.BT.Abstract.Node;
-using static BehaviorTree.BT.CompositeNodes.SyncParallelNode;
+using BehaviorTree.Abstract.Interfaces;
+using static BehaviorTree.Abstract.Node;
+using static BehaviorTree.CompositeNodes.SyncParallelNode;
 
 namespace BehaviorTree.Tests
 {

@@ -1,6 +1,6 @@
-﻿using BehaviorTree.BT.Abstract;
+﻿using BehaviorTree.Abstract;
 
-namespace BehaviorTree.BT.CompositeNodes
+namespace BehaviorTree.CompositeNodes
 {
     public sealed class FallbackNode : Composite
     {
