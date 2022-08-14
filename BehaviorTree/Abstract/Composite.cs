@@ -17,5 +17,7 @@ namespace BehaviorTree.Abstract
             SetParent(child, true);
             children.Remove(child);
         }
+
+        protected bool IsTheLastChild() => currentChild == children.Count - 1;
     }
 }

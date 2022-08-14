@@ -16,10 +16,7 @@ namespace BehaviorTree
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-                state = STATE.WORKING;
-
-            status = STATUS.RUNNING;
+            SetStats();
 
             var action = children[currentChild].Tick();
 
@@ -35,8 +32,10 @@ namespace BehaviorTree
 
         public void Attach(Node child)
         {
-            if(HasChildren() || child.Type != TYPE.COMPOSITE)
-               throw new InvalidOperationException($"Unable to add Node {child}.");
+            if (HasChildren())
+                throw new InvalidOperationException($"Unable to add Node {child}. Only one child is allowed on the root node.");
+            else if (child.Type != TYPE.COMPOSITE)
+                throw new InvalidOperationException($"Unable to add Node {child}. It's only allowed to add composite nodes.");
 
             SetParent(child);
             children.Add(child);

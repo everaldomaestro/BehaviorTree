@@ -21,7 +21,7 @@ namespace BehaviorTree.CompositeNodes
             {
                 children[currentChild].Reset();
 
-                if (currentChild == children.Count - 1)
+                if (IsTheLastChild())
                 {
                     currentChild = 0;
                     status = STATUS.FAILURE;

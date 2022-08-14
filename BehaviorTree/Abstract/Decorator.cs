@@ -9,7 +9,7 @@ namespace BehaviorTree.Abstract
         public virtual void Attach(Node child)
         {
             if (HasChildren())
-                throw new InvalidOperationException($"Unable to add Node {child}.");
+                throw new InvalidOperationException($"Unable to add Node {child}. Only one child is allowed on the decorator node.");
 
             SetParent(child);
             children.Add(child);

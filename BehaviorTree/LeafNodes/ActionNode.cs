@@ -19,7 +19,7 @@ namespace BehaviorTree.LeafNodes
 
             var action = Process?.Invoke();
             if (action.HasValue)
-                status = action.GetValueOrDefault();
+                status = action.Value;
             else
                 status = STATUS.FAILURE;
 

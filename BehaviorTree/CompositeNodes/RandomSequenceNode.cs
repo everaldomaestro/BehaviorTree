@@ -8,16 +8,9 @@ namespace BehaviorTree.CompositeNodes
 
         public override STATUS Tick()
         {
-            if (state == STATE.IDLE)
-            {
-                state = STATE.WORKING;
-
-                if (!ChildTickRandom())
-                {
-                    status = STATUS.FAILURE;
-                    return status;
-                }
-            }
+            SetStats();
+            if(status == STATUS.FAILURE)
+                return status;
 
             status = STATUS.RUNNING;
 

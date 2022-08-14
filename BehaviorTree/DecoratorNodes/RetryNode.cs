@@ -26,7 +26,7 @@ namespace BehaviorTree.DecoratorNodes
             else if (countFailure >= times)
             {
                 children[currentChild].Reset();
-                status = action;
+                status = STATUS.FAILURE;
                 countFailure = 0;
             }
 

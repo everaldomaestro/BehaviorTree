@@ -15,5 +15,16 @@
 
             return true;
         }
+
+        public override void SetStats()
+        {
+            if (state == STATE.IDLE)
+            {
+                state = STATE.WORKING;
+
+                if (!ChildTickRandom())
+                    status = STATUS.FAILURE;
+            }
+        }
     }
 }

@@ -2,8 +2,6 @@
 {
     public abstract class Leaf : Node
     {
-        protected Leaf(string name) : base(name)
-        {
-        }
+        protected Leaf(string name) : base(name) { }
     }
 }
